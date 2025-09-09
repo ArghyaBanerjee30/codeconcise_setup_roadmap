@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeConcise | Setup Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header-gradient {
+            background: linear-gradient(-45deg, #06b6d4, #3b82f6, #8b5cf6, #ec4899);
+            background-size: 400% 400%;
+            animation: animated-gradient 15s ease infinite;
+        }
+        .tab-active {
+            border-bottom-color: #0891b2; /* cyan-600 */
+            color: #0891b2; /* cyan-600 */
+            font-weight: 600; /* semibold */
+        }
+        /* Custom styles for modal content */
+        .modal-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827; /* gray-900 */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #e5e7eb; /* gray-200 */
+            padding-bottom: 0.5rem;
+        }
+        .modal-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0e7490; /* cyan-700 */
+            margin-bottom: 0.5rem;
+        }
+        .modal-content p, .modal-content li {
+            color: #4b5563; /* gray-600 */
+        }
+        .modal-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .modal-content table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+        .modal-content th, .modal-content td {
+            border: 1px solid #d1d5db; /* gray-300 */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .modal-content th {
+            background-color: #f3f4f6; /* gray-100 */
+            color: #1f2937; /* gray-800 */
+        }
+        /* Style for inline code tags (e.g., in paragraphs) */
+        .modal-content :not(pre) > code {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #be185d; /* pink-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        /* Reset styles for code inside a pre block for a uniform look */
+        .modal-content pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        .card-enabled {
+            border-color: #22c55e !important; /* green-500 */
+            background-color: #f0fdf4 !important; /* green-50 */
+        }
+        .card-unselected {
+            background-color: #fef2f2; /* red-50 */
+            border-color: #fecaca; /* red-200 */
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- Header -->
+    <header class="header-gradient text-white py-20 px-4 text-center">
+        <div class="container mx-auto max-w-4xl">
+            <h1 class="text-4xl sm:text-5xl font-bold">
+                CodeConcise Setup Guide
+            </h1>
+            <p class="mt-4 text-lg opacity-90">Your step-by-step guide to start the app on your repo in the local</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+        <main class="space-y-12">
+            <!-- Prerequisites Section -->
+            <section id="prerequisites" class="p-8 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Prerequisites
+                </h2>
+                <div class="space-y-4">
+                        <!-- Note: Neo4j -->
+                    <div class="bg-cyan-50 border-l-4 border-cyan-500 rounded-r-lg p-4 flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-cyan-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <div>
+                            <h3 class="font-semibold text-cyan-900">Running Neo4j Instance</h3>
+                            <p class="text-cyan-800">Ensure a Neo4j instance is running. Connection credentials (URI, username, password, database) must be set in the <code class="bg-cyan-100 text-cyan-900 px-1 py-0.5 rounded">.env</code> file.</p>
+                        </div>
+                    </div>
+                        <!-- Note: Python Version -->
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg p-4 flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-yellow-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        <div>
+                            <h3 class="font-semibold text-yellow-900">Python Version</h3>
+                            <p class="text-yellow-800">Use Python <code class="bg-yellow-100 text-yellow-900 px-1 py-0.5 rounded">3.11.x</code> or <code class="bg-yellow-100 text-yellow-900 px-1 py-0.5 rounded">3.12.x</code>. Other versions are not supported.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 space-y-8">
+                    <!-- Step: Virtual Environment -->
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Create & Activate Virtual Environment</h3>
+                            <p class="mb-4">Select your operating system to get the correct activation command.</p>
+                            
+                            <div id="os-selector" class="flex space-x-2 mb-4">
+                                <button data-os="linux" class="os-button bg-cyan-500 text-white px-4 py-2 rounded-md font-semibold transition-colors duration-200">Linux | macOS</button>
+                                <button data-os="windows" class="os-button text-gray-600 bg-white border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-semibold transition-colors duration-200">Windows</button>
+                            </div>
+
+                            <div id="linux-code-block" class="code-block" data-lang="Linux | macOS">
+                                <pre><code class="language-bash"># Create a virtual environment
+python3 -m venv venv
+
+# Activate the virtual environment
+source venv/bin/activate</code></pre>
+                            </div>
+                            <div id="windows-code-block" class="code-block hidden" data-lang="Windows">
+                                <pre><code class="language-bash"># Create a virtual environment
+python3 -m venv venv
+
+# Activate the virtual environment
+venv\Scripts\activate</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step: Install Poetry -->
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Install Poetry</h3>
+                            <p class="mb-4">We use Poetry for dependency management. Install it if you haven't already.</p>
+                            <div class="code-block" data-lang="Bash">
+                                <pre><code class="language-bash">pip install poetry</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step: Install Project Dependencies -->
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Install Project Dependencies</h3>
+                            <p class="mb-4">Once Poetry is installed, install all project dependencies:</p>
+                            <div class="code-block" data-lang="Bash">
+                                <pre><code class="language-bash">poetry install</code></pre>
+                            </div>
+                            <p class="mt-4 text-gray-600">Now proceed with the steps below.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step: Environment File -->
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Set Up Environment File</h3>
+                            <p class="mb-4">Copy the environment template and fill in your Neo4j credentials and other required values.</p>
+                            <div class="code-block" data-lang="Bash">
+                                <pre><code class="language-bash">cp env-template .env</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step: Clone Repository -->
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Clone the Source Repository</h3>
+                            <p class="mb-4">Paste your repository URL below to generate the correct clone command.</p>
+                            
+                            <div class="mb-4">
+                                <label for="repo-url-input" class="block text-sm font-medium text-gray-600 mb-2">Your Git Repository URL:</label>
+                                <input type="text" id="repo-url-input" placeholder="https://github.com/user/repository.git" class="w-full bg-white border border-gray-300 text-gray-900 rounded-md px-3 py-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors">
+                            </div>
+
+                            <div class="code-block" data-lang="Bash">
+                                <pre><code id="clone-command-code" class="language-bash">mkdir repo_data
+cd repo_data
+git clone &lt;your-code-repo-url&gt;
+cd ..</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ingestion Pipeline Section -->
+            <section id="ingestion-pipeline" class="p-8 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-8 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                    Running the Ingestion Pipeline
+                </h2>
+
+                <div class="space-y-8">
+                    <!-- Step: Configuration Template -->
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Choose a Configuration Template</h3>
+                            <p class="mb-4">Select a configuration template based on your cloud provider and copy it to `config.yaml`.</p>
+                            
+                            <!-- Button-based Selector -->
+                                <div id="config-selector" class="flex space-x-2 mb-4">
+                                    <button data-cloud="azure" class="config-button bg-cyan-500 text-white px-4 py-2 rounded-md font-semibold transition-colors duration-200">Azure</button>
+                                    <button data-cloud="aws" class="config-button text-gray-600 bg-white border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-semibold transition-colors duration-200">AWS</button>
+                                </div>
+
+                                <!-- Code Blocks -->
+                                <div id="aws-code-block" class="code-block hidden" data-lang="AWS">
+                                    <pre><code class="language-bash">cp aws_config_template.yaml config.yaml</code></pre>
+                                </div>
+                                <div id="azure-code-block" class="code-block" data-lang="Azure">
+                                    <pre><code class="language-bash">cp azure_config_template.yaml config.yaml</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool & Action Library Section -->
+                    <section id="tool-library" class="p-8 bg-gray-50/50 rounded-xl border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            Tool & Action Library
+                        </h2>
+            
+                        <!-- Tabs -->
+                        <div class="border-b border-gray-200 mb-8">
+                            <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                                <button id="ingestion-tab" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-transparent hover:text-cyan-600 hover:border-gray-300 tab-active">
+                                    Ingestion Tools
+                                </button>
+                                <button id="comprehension-tab" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-transparent text-gray-500 hover:text-cyan-600 hover:border-gray-300">
+                                    Comprehension Actions
+                                </button>
+                            </nav>
+                        </div>
+            
+                        <!-- Ingestion Tools Content -->
+                        <div id="ingestion-content">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">BluAge Loader</h3><p class="text-gray-600 text-sm mt-2">Constructs a dependency graph from BluAge JSON output.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="bluage">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="bluage">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">CSharp Loader</h3><p class="text-gray-600 text-sm mt-2">Parses a C# codebase into a structured dependency graph.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="csharp">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="csharp">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Generic Loader</h3><p class="text-gray-600 text-sm mt-2">Maps any directory structure into a structural graph.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="generic">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="generic">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">IDMS Loader</h3><p class="text-gray-600 text-sm mt-2">Parses IDMS COBOL applications using SMOJOL.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="idms">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="idms">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Java Loader</h3><p class="text-gray-600 text-sm mt-2">Parses Java codebases and maps their structure to a graph.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="java">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="java">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">PLSQL Loader</h3><p class="text-gray-600 text-sm mt-2">Parses PL/SQL codebases into a structured graph.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="plsql">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="plsql">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">TSql Ingestor</h3><p class="text-gray-600 text-sm mt-2">Processes Microsoft T-SQL files into a dependency graph.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="tsql">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="tsql">View Docs</button></div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Comprehension Actions Content (Initially Hidden) -->
+                        <div id="comprehension-content" class="hidden">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                                    <span class="absolute top-0 right-0 transform translate-x-4 -translate-y-2 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10 uppercase">ENABLED BY DEFAULT</span>
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Static Code Summary</h3><p class="text-gray-600 text-sm mt-2">Creates summaries and vector embeddings for code snippets.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="static_code_summary">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="static_code_summary">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                                    <span class="absolute top-0 right-0 transform translate-x-4 -translate-y-2 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10 uppercase">ENABLED BY DEFAULT</span>
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Dynamic Code Summary</h3><p class="text-gray-600 text-sm mt-2">Generates deep insights via simulated Q&A sessions with an LLM.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="dynamic_code_summary">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="dynamic_code_summary">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Seam Extraction</h3><p class="text-gray-600 text-sm mt-2">Identifies external boundaries like API calls and DB access.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="seam_extraction">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="seam_extraction">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">AWS Q Developer Transform</h3><p class="text-gray-600 text-sm mt-2">Links code with documentation from Amazon Q Developer.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="aws_q_transform">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="aws_q_transform">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Business Capability Mapping</h3><p class="text-gray-600 text-sm mt-2">Maps code to a predefined list of business capabilities.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="business_capability_mapping">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="business_capability_mapping">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Capability Extraction</h3><p class="text-gray-600 text-sm mt-2">Automatically identifies business capabilities from code.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="capability_extraction">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="capability_extraction">View Docs</button></div>
+                                </div>
+                                <div class="tool-card relative p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Capability Mappings</h3><p class="text-gray-600 text-sm mt-2">Maps code to a hierarchical business capability model.</p></div>
+                                    <div class="mt-4 flex space-x-2"><button class="add-to-config-button flex-1 bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-600 transition-colors" data-tool="capability_mappings">Add to Config</button><button class="view-docs-button flex-1 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="capability_mappings">View Docs</button></div>
+                                </div>
+                                <div class="tool-card p-6 rounded-lg border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 card-unselected">
+                                    <div><h3 class="font-bold text-gray-900 text-lg">Capability Association</h3><p class="text-gray-600 text-sm mt-2">Organizes extracted capabilities into a hierarchy. (Triggered automatically).</p></div>
+                                    <div class="mt-4"><button class="view-docs-button w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition-colors" data-tool="capability_association">View Docs</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Step: Define Stages -->
+                    <div id="define-stages-section" class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Your `config.yaml`</h3>
+                        <p class="mb-4">This configuration is built dynamically. Copy the final version into your `config.yaml` file.</p>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4 flex items-start my-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-blue-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <div>
+                                <p class="text-blue-800">Once the template is ready, configure the required parameters (mentioned in comments) as per your needs. In case of any doubt, refer to the "View Docs" button for each tool and action.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="code-block" data-lang="YAML">
+                            <pre><code id="main-config-yaml" class="language-yaml"></code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Step: Run the Pipeline -->
+                    <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Run the Pipeline</h3>
+                        <p class="mb-4">Execute the pipeline using Poetry:</p>
+                        <div class="code-block" data-lang="Bash">
+                            <pre><code class="language-bash">poetry run python -m analysis.main --config config.yaml</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="run-application" class="p-8 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Running the Application
+                </h2>
+                
+                <div class="bg-cyan-50 border-l-4 border-cyan-500 rounded-r-lg p-4 flex items-start mb-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-cyan-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <div>
+                        <h3 class="font-semibold text-cyan-900">Node.js Requirement</h3>
+                        <p class="text-cyan-800">Ensure you have <strong>Node.js v22.6.0</strong> installed via <code>nvm</code>. All dependencies should be installed before starting.</p>
+                    </div>
+                </div>
+            
+                <div class="space-y-8">
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Go to the UI Directory</h3>
+                            <p class="mb-4">From the root directory:</p>
+                            <div class="code-block" data-lang="Bash">
+                                <pre><code class="language-bash">cd app/ui</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Install Dependencies</h3>
+                            <p class="mb-4">Run:</p>
+                            <div class="code-block" data-lang="Bash">
+                                <pre><code class="language-bash">yarn install</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Start the Full Application</h3>
+                            <p class="mb-4">Run both backend and frontend together:</p>
+                            <div class="code-block" data-lang="Bash">
+                                <pre><code class="language-bash">yarn start:all</code></pre>
+                            </div>
+                            <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                                <a href="http://localhost:3000" target="_blank" class="flex-1 text-center bg-cyan-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-cyan-600 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span>Launch UI (localhost:3000)</span>
+                                </a>
+                                <a href="http://localhost:8081" target="_blank" class="flex-1 text-center bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                                    </svg>
+                                    <span>View API (localhost:8081)</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="snippet-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-xl border-gray-200 w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl">
+            <div class="flex justify-between items-center p-4 border-b border-gray-200 flex-shrink-0">
+                <h2 id="modal-title" class="text-2xl font-bold text-gray-900"></h2>
+                <button id="close-modal-button" class="text-gray-500 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto modal-content">
+                <!-- Dynamic content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toolDetails = {
+                bluage: {
+                    title: 'Ingestion Tool: BluAgeLoader',
+                    type: 'ingestion',
+                    yamlSnippet: `- package: codeconcise.sdk.tools.ingestion.bluage.bluage_loader
+  name: BluAgeLoader
+  input_path: ./source/code                             # Path to source root directory
+  additional_configs:
+    dependencies_path: ./dependencies/dependencies.json # Path to BluAge JSON
+  included_node_types:
+    - "*"                                               # Include all node types
+  included_relation_types:
+    - "*"                                               # Include all relationship types`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>BluAgeLoader</code> is a specialized ingestion tool designed to construct a dependency graph using structured JSON output files generated by <code>BluAge</code>. It extracts software components and their interdependencies, transforming them into nodes and edges in a graph database.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- package: codeconcise.sdk.tools.ingestion.bluage.bluage_loader
+  name: BluAgeLoader
+  input_path: ./source/code                             # Path to source root directory
+  additional_configs:
+    dependencies_path: ./dependencies/dependencies.json # Path to BluAge JSON
+  included_node_types:
+    - "*"                                               # Include all node types
+  included_relation_types:
+    - "*"                                               # Include all relationship types</code></pre></div>
+                        <p class="mt-4"><strong>Note:</strong> Example <code>dependencies.json</code> file is provided below.</p>
+                        <div class="code-block" data-lang="JSON"><pre><code class="language-json">[
+  { "name": "README.md", "path": "files/README.md", "type": "md", "dependencies": [] },
+  { "name": "CODE_OF_CONDUCT.md", "path": "files/CODE_OF_CONDUCT.md", "type": "md", "dependencies": [] },
+  { "name": "CVTRA04Y", "path": "cpy/CVTRA04Y.cpy", "type": "CPY", "dependencies": [] },
+  { "name": "CSUSR01Y", "path": "cpy/CSUSR01Y.cpy", "type": "CPY", "dependencies": [] }
+]
+</code></pre></div>
+                        <h3>Required Parameters</h3>
+                        <table>
+                            <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>input_path</code></td><td>Path to the root directory of source files</td></tr>
+                                <tr><td><code>additional_configs</code></td><td>Must contain <code>dependencies_path</code>, pointing to BluAge's JSON output</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                csharp: {
+                    title: 'Ingestion Tool: CSharpLoader',
+                    type: 'ingestion',
+                    yamlSnippet: `- package: codeconcise.sdk.tools.ingestion.csharp_13.csharp_ingestor
+  name: CsharpIngestor
+  input_path: ./projects/my-csharp-app                # Path to source root directory
+  additional_configs:
+    project_name: my_csharp_project                   # Optional grouping label
+  included_node_types:
+    - "*"
+  included_relation_types:
+    - "*"`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>CSharpLoader</code> is a specialized ingestion tool designed to parse and transform a C# codebase into a structured dependency graph. It uses ANTLR-based parsing to extract classes, methods, and relationships from the source files and populate them into a graph database for deeper analysis with CodeConcise.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- package: codeconcise.sdk.tools.ingestion.csharp_13.csharp_ingestor
+  name: CsharpIngestor
+  input_path: ./projects/my-csharp-app                # Path to source root directory
+  additional_configs:
+    project_name: my_csharp_project                   # Optional grouping label
+  included_node_types:
+    - "*"
+  included_relation_types:
+    - "*"</code></pre></div>
+                        <h3>Required Parameters</h3>
+                        <table>
+                            <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>input_path</code></td><td>Absolute or relative path to the C# source code root directory</td></tr>
+                                <tr><td><code>additional_configs.project_name</code></td><td>Project-level tag to group the extracted nodes</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                generic: {
+                    title: 'Ingestion Tool: GenericLoader',
+                    type: 'ingestion',
+                    yamlSnippet: `- package: codeconcise.sdk.tools.ingestion.generic.generic_loader
+  name: GenericLoader
+  input_path: ./my/data/directory                       # Root directory to ingest
+  additional_configs:
+    file_patterns:
+      - "**/*.java"                                     # Include all files
+      - "!**/test/**"                                   # Exclude files in test directories
+  included_node_types:
+    - FILE
+    - DIR                                               # Include file and directory nodes
+  included_relation_types:
+    - MADE_OF                                           # Only include MADE_OF relationships`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>GenericLoader</code> is a general-purpose ingestion tool that maps directory structures and files from any filesystem-based data source into a graph database. It is primarily used to bootstrap structural graphs before language-specific parsing or deeper enrichment.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- package: codeconcise.sdk.tools.ingestion.generic.generic_loader
+  name: GenericLoader
+  input_path: ./my/data/directory                       # Root directory to ingest
+  additional_configs:
+    file_patterns:
+      - "**/*.java"                                     # Include all files
+      - "!**/test/**"                                   # Exclude files in test directories
+  included_node_types:
+    - FILE
+    - DIR                                               # Include file and directory nodes
+  included_relation_types:
+    - MADE_OF                                           # Only include MADE_OF relationships</code></pre></div>
+                        <h3>Required Parameters</h3>
+                        <table>
+                            <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>input_path</code></td><td>Path to the root directory for ingestion</td></tr>
+                                <tr><td><code>additional_configs.file_patterns</code></td><td>List of glob patterns to filter files</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                idms: {
+                    title: 'Ingestion Tool: IDMSLoader',
+                    type: 'ingestion',
+                    yamlSnippet: `- package: codeconcise.sdk.tools.ingestion.idms_cobol.idms_loader
+  name: IdmsLoader
+  input_path: ./source/code                               # Root directory
+  additional_configs:
+    programs_path: COBOL                                  # Folder with COBOL .cbl files
+    copybooks_path: copybooks                             # Folder with copybooks (.cpy)
+    smojol_jar_path: ./source/code/lib/smojol-cli.jar     # Path to smojol-cli.jar
+    idms_jar_path: ./source/code/lib/dialect-idms.jar     # Path to dialect-idms.jar
+    smojol_cli_commands: "WRITE_RAW_AST DRAW_FLOWCHART"   # CLI commands for analysis
+    artefacts_path: ./source/code/idms-cobol-project/data # Output directory for generated artefacts
+    additional_node_properties:
+      module_name: whatever
+  included_node_types:
+    - "*"
+  included_relation_types:
+    - "*"`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>IDMSLoader</code> is a domain-specific ingestion tool tailored for <strong>IDMS COBOL</strong> applications. It parses COBOL programs and copybooks to extract syntax trees and dependencies, transforming them into a graph database representation.</p>
+                        <p class="mt-2 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-md text-yellow-800"><strong>Prerequisites:</strong> SMOJOL requires <strong>Java version > 21</strong>.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- package: codeconcise.sdk.tools.ingestion.idms_cobol.idms_loader
+  name: IdmsLoader
+  input_path: ./source/code                               # Root directory
+  additional_configs:
+    programs_path: COBOL                                  # Folder with COBOL .cbl files
+    copybooks_path: copybooks                             # Folder with copybooks (.cpy)
+    smojol_jar_path: ./source/code/lib/smojol-cli.jar     # Path to smojol-cli.jar
+    idms_jar_path: ./source/code/lib/dialect-idms.jar     # Path to dialect-idms.jar
+    smojol_cli_commands: "WRITE_RAW_AST DRAW_FLOWCHART"   # CLI commands for analysis
+    artefacts_path: ./source/code/idms-cobol-project/data # Output directory for generated artefacts
+    additional_node_properties:
+      module_name: whatever
+  included_node_types:
+    - "*"
+  included_relation_types:
+    - "*"</code></pre></div>
+                        <h3>Required Parameters</h3>
+                        <table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+                            <tr><td><code>input_path</code></td><td>Root folder containing COBOL and copybook sources</td></tr>
+                            <tr><td><code>programs_path</code></td><td>Subfolder containing <code>.cbl</code> files</td></tr>
+                        </tbody></table>
+                    `
+                },
+                java: {
+                    title: 'Ingestion Tool: JavaLoader',
+                    type: 'ingestion',
+                    yamlSnippet: `- package: codeconcise.sdk.tools.ingestion.java.java_loader
+  name: JavaLoader
+  input_path: ./my-java-project                            # Path to Java project root
+  additional_configs:
+    name: my_project_name                                  # Optional project label
+  included_node_types:
+    - CLASS
+    - METHOD
+    - PACKAGE
+  included_relation_types:
+    - DEPENDS_ON
+    - MADE_OF`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>JavaLoader</code> is a dedicated ingestion tool that parses <strong>Java codebases</strong> and maps structural elements and their dependencies into a graph database.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- package: codeconcise.sdk.tools.ingestion.java.java_loader
+  name: JavaLoader
+  input_path: ./my-java-project                            # Path to Java project root
+  additional_configs:
+    name: my_project_name                                  # Optional project label
+  included_node_types:
+    - CLASS
+    - METHOD
+    - PACKAGE
+  included_relation_types:
+    - DEPENDS_ON
+    - MADE_OF</code></pre></div>
+                        <h3>Required Parameters</h3>
+                        <table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+                            <tr><td><code>input_path</code></td><td>Root path to the Java project directory</td></tr>
+                            <tr><td><code>additional_configs.name</code></td><td>Name to tag all extracted nodes with a project identifier</td></tr>
+                        </tbody></table>
+                    `
+                },
+                plsql: {
+                    title: 'Ingestion Tool: PLSQLLoader',
+                    type: 'ingestion',
+                    yamlSnippet: `- package: codeconcise.sdk.tools.ingestion.plsql.plsql_loader
+  name: PLSQLLoader
+  input_path: ./source/plsql_project            # Directory containing PLSQL files
+  additional_configs:
+    artefacts_path: analysis/ingestion/plsql_grammar
+  included_node_types:                          # Include all node types
+    - "*"
+  included_relation_types:                      # Include all relationship types
+    - "*"`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>PLSQLLoader</code> is a specialized ingestion tool built to parse <strong>PL/SQL codebases</strong> and transform them into a structured graph representation.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- package: codeconcise.sdk.tools.ingestion.plsql.plsql_loader
+  name: PLSQLLoader
+  input_path: ./source/plsql_project            # Directory containing PLSQL files
+  additional_configs:
+    artefacts_path: analysis/ingestion/plsql_grammar
+  included_node_types:                          # Include all node types
+    - "*"
+  included_relation_types:                      # Include all relationship types
+    - "*"</code></pre></div>
+                        <h3>Required Parameters</h3>
+                        <table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+                            <tr><td><code>input_path</code></td><td>Root path to PL/SQL files</td></tr>
+                            <tr><td><code>additional_configs.artefacts_path</code></td><td>Path to save ASTs or debug outputs</td></tr>
+                        </tbody></table>
+                    `
+                },
+                tsql: {
+                    title: 'Ingestion Tool: TSqlIngestor',
+                    type: 'ingestion',
+                    yamlSnippet: `- package: codeconcise.sdk.tools.ingestion.tsql.tsql_ingestor
+  name: TSqlIngestor
+  input_path: ./path/to/the/directory                 # Can be any subdirectory of your repo
+  additional_configs:
+    project_name: "TSQL Graph Project"
+    project_source: ./project                          # Root of your TSQL codebase (used for ID generation)
+  included_node_types:
+    - "*"                                             # All supported types
+  included_relation_types:
+    - "*"                                             # All DEPENDS_ON edges`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>TSqlIngestor</code> is a powerful ingestion tool that processes Microsoft T-SQL (<code>.sql</code>) files, parses their structure, and maps them into a graph database.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- package: codeconcise.sdk.tools.ingestion.tsql.tsql_ingestor
+  name: TSqlIngestor
+  input_path: ./path/to/the/directory                 # Can be any subdirectory of your repo
+  additional_configs:
+    project_name: "TSQL Graph Project"
+    project_source: ./project                          # Root of your TSQL codebase (used for ID generation)
+  included_node_types:
+    - "*"                                             # All supported types
+  included_relation_types:
+    - "*"                                             # All DEPENDS_ON edges</code></pre></div>
+                        <h3>Example Project Structure</h3>
+                        <div class="code-block" data-lang="plaintext"><pre><code class="language-plaintext">project/
+  └── database1/
+      └── hr/
+          ├── Tables/
+          │   ├── employee.sql
+          │   └── department.sql
+          ├── StoredProcedures/
+          │   └── sp_add_employee.sql
+          └── Views/
+              └── vw_active_employees.sql
+</code></pre></div>
+                        <h3>Required Parameters</h3>
+                        <table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+                            <tr><td><code>input_path</code></td><td>Path to folder containing <code>.sql</code> files</td></tr>
+                            <tr><td><code>additional_configs.project_source</code></td><td>Root path of your project (used to derive consistent IDs)</td></tr>
+                        </tbody></table>
+                    `
+                },
+                static_code_summary: {
+                    title: 'Action: StaticCodeSummary',
+                    type: 'comprehension',
+                    yamlSnippet: `- action:
+  package: codeconcise.sdk.tools.comprehension.static_code_summary
+  name: StaticCodeSummary
+  additional_args:
+    splitter_strategy: "min_size_recursive" # Omit for default
+  condition:
+    type: equalto                           # Can be: equalto, notequalto, always, custom
+    property: node_type                     # Required for all except 'always'
+    values:                                 # Required for all except 'always'
+      - Method`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>StaticCodeSummary</code> action creates meaningful summaries and vector embeddings of code snippets found in a graph database.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- action:
+  package: codeconcise.sdk.tools.comprehension.static_code_summary
+  name: StaticCodeSummary
+  additional_args:
+    splitter_strategy: "min_size_recursive" # Omit for default
+  condition:
+    type: equalto                           # Can be: equalto, notequalto, always, custom
+    property: node_type                     # Required for all except 'always'
+    values:                                 # Required for all except 'always'
+      - Method</code></pre></div>
+                        <p class="mt-2 p-3 bg-blue-50 border-l-4 border-blue-400 text-blue-800 rounded-r-md"><strong>Splitter Strategy:</strong> By default (when splitter_strategy is omitted or set to "default"), the system uses RecursiveCharacterTextSplitter. Set "min_size_recursive" to switch to MinSizeRecursiveCharacterTextSplitter, which preserves separator-aware splits and then merges adjacent undersized chunks until each meets a minimum length (measured via the splitter’s length function—characters by default). This reduces tiny orphan fragments, improves embedding quality, and preserves both chunk order and the configured overlap.</p>
+                    `
+                },
+                dynamic_code_summary: {
+                    title: 'Action: DynamicCodeSummary',
+                    type: 'comprehension',
+                    yamlSnippet: `- action:
+  package: codeconcise.sdk.tools.comprehension.dynamic_code_summary
+  name: DynamicCodeSummary
+  additional_args:
+    splitter_strategy: "min_size_recursive" # Omit for default
+  condition:
+    type: equalto                           # Can be: equalto, notequalto, always, custom
+    property: type                          # Required for all except 'always'
+    values:                                 # Required for all except 'always'
+      - CLASS`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>DynamicCodeSummary</code> action enriches selected code nodes by simulating an interactive LLM-based Q&A session to uncover deeper insights.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- action:
+  package: codeconcise.sdk.tools.comprehension.dynamic_code_summary
+  name: DynamicCodeSummary
+  additional_args:
+    splitter_strategy: "min_size_recursive" # Omit for default
+  condition:
+    type: equalto                           # Can be: equalto, notequalto, always, custom
+    property: type                          # Required for all except 'always'
+    values:                                 # Required for all except 'always'
+      - CLASS</code></pre></div>
+                        <p class="mt-2 p-3 bg-blue-50 border-l-4 border-blue-400 text-blue-800 rounded-r-md"><strong>Splitter Strategy:</strong> By default (when splitter_strategy is omitted or set to "default"), the system uses RecursiveCharacterTextSplitter. Set "min_size_recursive" to switch to MinSizeRecursiveCharacterTextSplitter, which preserves separator-aware splits and then merges adjacent undersized chunks until each meets a minimum length (measured via the splitter’s length function—characters by default). This reduces tiny orphan fragments, improves embedding quality, and preserves both chunk order and the configured overlap.</p>
+                    `
+                },
+                seam_extraction: {
+                    title: 'Action: Seam Extraction',
+                    type: 'comprehension',
+                    yamlSnippet: `- action:
+  package: codeconcise.sdk.tools.comprehension.seam_extraction
+  name: SeamExtraction
+  additional_args:
+    execution_mode: full
+  condition:
+    type: notequalto                        # Can be: equalto, notequalto, always, custom
+    property: code                          # Required for all except 'always'
+    values: ''                              # Required for all except 'always'`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <strong>Seam Extraction</strong> action identifies and extracts <strong>seams</strong> from code chunks—points where the system interacts with external boundaries (API calls, DB access, etc.).</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- action:
+  package: codeconcise.sdk.tools.comprehension.seam_extraction
+  name: SeamExtraction
+  additional_args:
+    execution_mode: full
+  condition:
+    type: notequalto                        # Can be: equalto, notequalto, always, custom
+    property: code                          # Required for all except 'always'
+    values: ''                              # Required for all except 'always'</code></pre></div>
+                    `
+                },
+                aws_q_transform: {
+                    title: 'Action: AWS Q Developer Transform',
+                    type: 'comprehension',
+                    yamlSnippet: `- action:
+  package: sdk.tools.comprehension.aws_q_developer_transform
+  name: AWSQDeveloperTransform
+  additional_args:
+    pdf_directory: /path/to/your/pdfs
+  condition:
+    type: notequalto                        # Can be: equalto, notequalto, always, custom
+    property: code                          # Required for all except 'always'
+    values: ''                              # Required for all except 'always'`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <strong>AWS Q Developer Transform</strong> action enhances comprehension by linking code nodes with relevant documentation from PDF files generated by Amazon Q Developer Transform.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- action:
+  package: sdk.tools.comprehension.aws_q_developer_transform
+  name: AWSQDeveloperTransform
+  additional_args:
+    pdf_directory: /path/to/your/pdfs
+  condition:
+    type: notequalto                        # Can be: equalto, notequalto, always, custom
+    property: code                          # Required for all except 'always'
+    values: ''                              # Required for all except 'always'</code></pre></div>
+                    `
+                },
+                capability_mappings: {
+                    title: 'Action: CapabilityMappings',
+                    type: 'comprehension',
+                    yamlSnippet: `- action:
+  package: codeconcise.sdk.tools.comprehension.capability_mappings
+  name: CapabilityMappings
+  additional_args:
+    use_llm_augmentation: false
+    product_name: CardDemo -- Mainframe CardDemo Application
+    product_description: |
+      This is a card demo application that showcases the capabilities of the system.
+      It includes features such as account management and inventory tracking.
+    product_capabilities:
+      - name: Account Management
+        description: Manage customer accounts and authentication flows
+        children:
+          - name: Account Creation
+            children:
+              - name: ID Verification
+              - name: Profile Setup
+          - name: Account Update
+            children:
+              - name: Contact Information
+              - name: Password Reset
+          - name: Account Deletion
+      - name: Card Management
+        description: Manage credit card operations
+        children:
+          - name: Card Issuance
+          - name: Card Activation
+          - name: Card Update
+          - name: Card Deactivation
+      - name: Transaction Management
+        description: Process and handle credit card transactions
+        children:
+          - name: Transaction Posting
+          - name: Transaction Listing
+          - name: Transaction Search
+          - name: Transaction Reconciliation
+      - name: Billing & Payments
+        description: Handle billing cycles and payments
+        children:
+          - name: Statement Generation
+          - name: Bill Payment Processing
+          - name: Interest and Fees Calculation
+      - name: User Administration
+        description: Admin-level user functions
+        children:
+          - name: User Creation
+          - name: User Update
+          - name: User Deletion
+          - name: Role Assignment
+      - name: Batch Processing
+        description: Backend jobs and scheduled processes
+        children:
+          - name: Daily Batch Runs
+          - name: Interest Calculation
+          - name: Report Generation
+      - name: Reporting & Analytics
+        description: Generate insights and reports for users and admins
+        children:
+          - name: Account Reports
+          - name: Transaction Statements
+          - name: Admin Audit Reports
+  conditions:
+    - type: always`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>CapabilityMappings</code> action intelligently maps code chunks to business capabilities, creating a structured, explainable hierarchy that aligns code with business functionality.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- action:
+  package: codeconcise.sdk.tools.comprehension.capability_mappings
+  name: CapabilityMappings
+  additional_args:
+    use_llm_augmentation: false
+    product_name: CardDemo -- Mainframe CardDemo Application
+    product_description: |
+      This is a card demo application that showcases the capabilities of the system.
+      It includes features such as account management and inventory tracking.
+    product_capabilities:
+      - name: Account Management
+        description: Manage customer accounts and authentication flows
+        children:
+          - name: Account Creation
+            children:
+              - name: ID Verification
+              - name: Profile Setup
+          - name: Account Update
+            children:
+              - name: Contact Information
+              - name: Password Reset
+          - name: Account Deletion
+      - name: Card Management
+        description: Manage credit card operations
+        children:
+          - name: Card Issuance
+          - name: Card Activation
+          - name: Card Update
+          - name: Card Deactivation
+      - name: Transaction Management
+        description: Process and handle credit card transactions
+        children:
+          - name: Transaction Posting
+          - name: Transaction Listing
+          - name: Transaction Search
+          - name: Transaction Reconciliation
+      - name: Billing & Payments
+        description: Handle billing cycles and payments
+        children:
+          - name: Statement Generation
+          - name: Bill Payment Processing
+          - name: Interest and Fees Calculation
+      - name: User Administration
+        description: Admin-level user functions
+        children:
+          - name: User Creation
+          - name: User Update
+          - name: User Deletion
+          - name: Role Assignment
+      - name: Batch Processing
+        description: Backend jobs and scheduled processes
+        children:
+          - name: Daily Batch Runs
+          - name: Interest Calculation
+          - name: Report Generation
+      - name: Reporting & Analytics
+        description: Generate insights and reports for users and admins
+        children:
+          - name: Account Reports
+          - name: Transaction Statements
+          - name: Admin Audit Reports
+  conditions:
+    - type: always</code></pre></div>
+                    `
+                },
+                capability_extraction: {
+                    title: 'Action: CapabilityExtraction',
+                    type: 'comprehension',
+                    yamlSnippet: `- action:
+  package: codeconcise.sdk.tools.comprehension.capability_extraction
+  name: CapabilityExtraction
+  additional_args:
+    top_n: 6
+  conditions:
+    - type: equalto               # Can be: equalto, notequalto, always, custom
+      property: type              # Required for all except 'always'
+      values:                     # Required for all except 'always'
+        - CodeFile`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>CapabilityExtraction</code> action analyzes code files and automatically identifies the business capabilities implemented within them.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- action:
+  package: codeconcise.sdk.tools.comprehension.capability_extraction
+  name: CapabilityExtraction
+  additional_args:
+    top_n: 6
+  conditions:
+    - type: equalto               # Can be: equalto, notequalto, always, custom
+      property: type              # Required for all except 'always'
+      values:                     # Required for all except 'always'
+        - CodeFile</code></pre></div>
+                    `
+                },
+                capability_association: {
+                    title: 'Action: CapabilityAssociation',
+                    type: 'comprehension',
+                    yamlSnippet: null,
+                    html: `<h2>Overview</h2><p>The <code>CapabilityAssociation</code> action clusters and organizes previously extracted business capabilities into a <strong>multi-level hierarchy</strong> based on similarity.</p><p class="mt-2 p-3 bg-blue-50 border-l-4 border-blue-400 text-blue-800 rounded-r-md"><strong>Note:</strong> This action is automatically triggered by <code>CapabilityExtraction</code>. You do not need to configure it separately.</p>`
+                },
+                business_capability_mapping: {
+                    title: 'Action: BusinessCapabilityMapping',
+                    type: 'comprehension',
+                    yamlSnippet: `- action:
+  package: codeconcise.sdk.tools.comprehension.business_capability_mapping
+  name: BusinessCapabilityMapping
+  additional_args:
+    capabilities:
+      - Account Management
+      - Inventory Tracking
+    capabilities_descriptions:
+      - Account Management is concerned with managing user accounts and data.
+  condition:
+    type: equalto                 # Can be: equalto, notequalto, always, custom
+    property: type                # Required for all except 'always'
+    values:                       # Required for all except 'always'
+      - CodeFile`,
+                    html: `
+                        <h2>Overview</h2>
+                        <p>The <code>BusinessCapabilityMapping</code> action processes nodes with LLM-generated summaries and maps them to business capabilities provided in the pipeline configuration.</p>
+                        <h3>YAML Configuration Example</h3>
+                        <div class="code-block" data-lang="YAML"><pre><code class="language-yaml">- action:
+  package: codeconcise.sdk.tools.comprehension.business_capability_mapping
+  name: BusinessCapabilityMapping
+  additional_args:
+    capabilities:
+      - Account Management
+      - Inventory Tracking
+    capabilities_descriptions:
+      - Account Management is concerned with managing user accounts and data.
+  condition:
+    type: equalto                 # Can be: equalto, notequalto, always, custom
+    property: type                # Required for all except 'always'
+    values:                       # Required for all except 'always'
+      - CodeFile</code></pre></div>
+                    `
+                }
+            };
+            const mainConfigCodeElement = document.getElementById('main-config-yaml');
+            const selectedTools = new Set();
+            const selectedActions = new Set(['static_code_summary', 'dynamic_code_summary']);
+            
+            const baseConfigTemplate = `pipeline:
+  db-name: \${NEO4J_DATABASE}
+  output-path: \${OUTPUT_PATH}
+
+  stages:
+    - type: ingestion
+      tools:
+#INGESTION_TOOLS_PLACEHOLDER#
+
+    - type: comprehension
+      language: replace_with_language
+      db_name: \${NEO4J_DATABASE}
+      run_mode: sequential
+      traversals:
+        - package: codeconcise.sdk.tools.comprehension.bottom_up_traversal
+          name: BottomUpTraversal
+          enrichments:
+#COMPREHENSION_ACTIONS_PLACEHOLDER#`;
+            
+            function updateConfigDisplay() {
+                let toolsContent = '';
+                if (selectedTools.size > 0) {
+                    toolsContent = Array.from(selectedTools).map(key => {
+                        const snippet = toolDetails[key].yamlSnippet;
+                        const indentedSnippet = snippet.split('\n').map(line => '      ' + line).join('\n');
+                        return `<span style="color: #7dd3fc;">${indentedSnippet}</span>`; // light sky-300
+                    }).join('\n\n');
+                } else {
+                    toolsContent = '      <span class="text-gray-400"># Add tools from the Ingestion tools library above.</span>';
+                }
+
+                let actionsContent = '';
+                if (selectedActions.size > 0) {
+                    actionsContent = Array.from(selectedActions).map(key => {
+                        const snippet = toolDetails[key].yamlSnippet;
+                        const indentedSnippet = snippet.split('\n').map(line => '            ' + line).join('\n');
+                        if (key === 'static_code_summary' || key === 'dynamic_code_summary') {
+                            return indentedSnippet; // Default color
+                        } else {
+                            return `<span style="color: #c084fc;">${indentedSnippet}</span>`; // light purple-400
+                        }
+                    }).join('\n\n');
+                }
+                
+                const defaultActionsExist = selectedActions.has('static_code_summary') && selectedActions.has('dynamic_code_summary');
+                if (selectedActions.size === 2 && defaultActionsExist) {
+                     actionsContent += '\n            <span class="text-gray-400"># Add other actions from the library above</span>';
+                }
+
+                let newConfig = baseConfigTemplate.replace('#INGESTION_TOOLS_PLACEHOLDER#', toolsContent);
+                newConfig = newConfig.replace('#COMPREHENSION_ACTIONS_PLACEHOLDER#', actionsContent);
+
+                mainConfigCodeElement.innerHTML = newConfig;
+            }
+
+
+            // INITIALIZE
+            updateConfigDisplay();
+            initializeCodeBlock(mainConfigCodeElement.closest('.code-block'));
+
+
+            const modal = document.getElementById('snippet-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const closeModalButton = document.getElementById('close-modal-button');
+
+            function initializeCodeBlock(block) {
+                if (!block) return;
+                if (block.querySelector('.code-block-header')) {
+                    if(block.id !== 'main-config-block') return;
+                };
+
+                const pre = block.querySelector('pre');
+                if (!pre) return;
+
+                const lang = block.dataset.lang;
+                
+                const oldHeader = block.querySelector('.code-block-header');
+                if(oldHeader) oldHeader.remove();
+
+                const header = document.createElement('div');
+                header.className = 'code-block-header flex justify-between items-center bg-slate-800 rounded-t-md px-4 py-2 text-xs font-mono border-b border-slate-700';
+                
+                const langLabel = document.createElement('span');
+                langLabel.className = 'text-slate-400';
+                langLabel.textContent = lang || '';
+                
+                const copyButton = document.createElement('button');
+                copyButton.className = 'flex items-center space-x-1 text-slate-400 hover:text-white';
+                const originalButtonHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    <span>Copy</span>
+                `;
+                copyButton.innerHTML = originalButtonHTML;
+                
+                header.appendChild(langLabel);
+                header.appendChild(copyButton);
+                
+                block.insertBefore(header, pre);
+                pre.className = 'bg-slate-900 text-slate-200 text-sm rounded-b-md p-4 overflow-x-auto';
+                block.style.borderRadius = '0.375rem';
+                block.style.overflow = 'hidden';
+
+                copyButton.addEventListener('click', () => {
+                    const codeText = pre.querySelector('code').innerText;
+                    navigator.clipboard.writeText(codeText).then(() => {
+                        copyButton.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-green-600">Copied!</span>
+                        `;
+                        setTimeout(() => {
+                           copyButton.innerHTML = originalButtonHTML;
+                        }, 2000);
+                    }).catch(err => {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = codeText;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        try {
+                            document.execCommand('copy');
+                            copyButton.innerHTML = `... Copied! ...`;
+                        } catch (err) {
+                            copyButton.querySelector('span').textContent = 'Failed!';
+                        }
+                        document.body.removeChild(textArea);
+                        setTimeout(() => {
+                           copyButton.innerHTML = originalButtonHTML;
+                        }, 2000);
+                    });
+                });
+            }
+
+            document.querySelectorAll('.code-block').forEach(block => {
+                if(block.querySelector('#main-config-yaml')) {
+                    block.id = 'main-config-block';
+                } else {
+                    initializeCodeBlock(block)
+                }
+            });
+            
+            // OS Selector
+            const osSelector = document.getElementById('os-selector');
+            if (osSelector) {
+                osSelector.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON') return;
+                    const os = e.target.dataset.os;
+                    
+                    osSelector.querySelectorAll('button').forEach(btn => {
+                        btn.classList.remove('bg-cyan-500', 'text-white');
+                        btn.classList.add('text-gray-600', 'bg-white', 'border', 'border-gray-300', 'hover:bg-gray-100');
+                    });
+                    e.target.classList.add('bg-cyan-500', 'text-white');
+                    e.target.classList.remove('text-gray-600', 'bg-white', 'border', 'border-gray-300', 'hover:bg-gray-100');
+
+                    document.getElementById('linux-code-block').classList.toggle('hidden', os !== 'linux');
+                    document.getElementById('windows-code-block').classList.toggle('hidden', os !== 'windows');
+                });
+            }
+
+            // Config Selector Logic
+            const configSelector = document.getElementById('config-selector');
+            if (configSelector) {
+                configSelector.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON') return;
+                    const selectedCloud = e.target.dataset.cloud;
+
+                    configSelector.querySelectorAll('button').forEach(button => {
+                        button.classList.remove('bg-cyan-500', 'text-white');
+                        button.classList.add('text-gray-600', 'bg-white', 'border', 'border-gray-300', 'hover:bg-gray-100');
+                    });
+                    e.target.classList.add('bg-cyan-500', 'text-white');
+                    e.target.classList.remove('text-gray-600', 'bg-white', 'border', 'border-gray-300', 'hover:bg-gray-100');
+                    
+                    document.getElementById('aws-code-block').classList.toggle('hidden', selectedCloud !== 'aws');
+                    document.getElementById('azure-code-block').classList.toggle('hidden', selectedCloud !== 'azure');
+                });
+            }
+
+            // Dynamic Clone Command Logic
+            const repoUrlInput = document.getElementById('repo-url-input');
+            const cloneCommandCode = document.getElementById('clone-command-code');
+            if (repoUrlInput && cloneCommandCode) {
+                repoUrlInput.addEventListener('input', (e) => {
+                    const url = e.target.value.trim();
+                    const placeholderUrl = '<your-code-repo-url>';
+                    const finalUrl = url ? url : placeholderUrl;
+                    cloneCommandCode.innerText = `mkdir repo_data\ncd repo_data\ngit clone ${finalUrl}\ncd ..`;
+                });
+            }
+
+            // Tab logic
+            const ingestionTab = document.getElementById('ingestion-tab');
+            const comprehensionTab = document.getElementById('comprehension-tab');
+            const ingestionContent = document.getElementById('ingestion-content');
+            const comprehensionContent = document.getElementById('comprehension-content');
+            
+            function handleTabClick(activeTab, inactiveTab, activeContent, inactiveContent) {
+                activeTab.classList.add('tab-active');
+                activeTab.classList.remove('text-gray-500');
+                inactiveTab.classList.remove('tab-active');
+                inactiveTab.classList.add('text-gray-500');
+                activeContent.classList.remove('hidden');
+                inactiveContent.classList.add('hidden');
+            }
+
+            ingestionTab.addEventListener('click', () => {
+                handleTabClick(ingestionTab, comprehensionTab, ingestionContent, comprehensionContent);
+            });
+            comprehensionTab.addEventListener('click', () => {
+                handleTabClick(comprehensionTab, ingestionTab, comprehensionContent, ingestionContent);
+            });
+
+            // ADD TO CONFIG and Modal logic
+            document.querySelectorAll('.add-to-config-button').forEach(button => {
+                const toolKey = button.dataset.tool;
+                const card = button.closest('.tool-card');
+
+                // Pre-select and disable mandatory actions
+                if (selectedActions.has(toolKey)) {
+                    button.innerHTML = '✓ Added';
+                    button.disabled = true;
+                    button.classList.remove('bg-cyan-500', 'text-white', 'hover:bg-cyan-600');
+                    button.classList.add('bg-green-600', 'text-white', 'cursor-not-allowed', 'opacity-80');
+                    if(card) {
+                        card.classList.remove('card-unselected');
+                        card.classList.add('card-enabled');
+                    }
+                }
+
+                button.addEventListener('click', () => {
+                    const details = toolDetails[toolKey];
+                    if (!details || !details.yamlSnippet) return;
+                    
+                    const isIngestion = details.type === 'ingestion';
+                    const isSelectedSet = isIngestion ? selectedTools : selectedActions;
+                    const isAdded = isSelectedSet.has(toolKey);
+                    
+                    if (isAdded) {
+                        isSelectedSet.delete(toolKey);
+                        button.innerHTML = 'Add to Config';
+                        button.classList.remove('bg-green-600', 'text-white');
+                        button.classList.add('bg-cyan-500', 'text-white', 'hover:bg-cyan-600');
+                        if(card) {
+                            card.classList.remove('card-enabled');
+                            card.classList.add('card-unselected');
+                        }
+                    } else {
+                        isSelectedSet.add(toolKey);
+                        button.innerHTML = '✓ Added';
+                        button.classList.remove('bg-cyan-500', 'text-white', 'hover:bg-cyan-600');
+                        button.classList.add('bg-green-600', 'text-white');
+                        if(card) {
+                            card.classList.add('card-enabled');
+                            card.classList.remove('card-unselected');
+                        }
+                    }
+                    updateConfigDisplay();
+                });
+            });
+
+            document.querySelectorAll('.view-docs-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const toolKey = button.dataset.tool;
+                    const details = toolDetails[toolKey];
+                    if (details) {
+                        modalTitle.textContent = details.title;
+                        modalContent.innerHTML = details.html;
+                        modalContent.querySelectorAll('.code-block').forEach(initializeCodeBlock);
+                        modal.classList.remove('hidden');
+                    }
+                });
+            });
+
+            closeModalButton.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
