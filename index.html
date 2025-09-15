@@ -255,12 +255,28 @@
                                     <p>Ensure a Neo4j instance is running. Connection credentials (URI, username, password, database) must be set in the <code class="px-1 py-0.5 rounded">.env</code> file.</p>
                                 </div>
                             </div>
+                            <!-- Note: APOC & GDS -->
+                            <div class="note note-info">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="note-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <div>
+                                    <h3 class="font-semibold">Required Neo4j Plugins</h3>
+                                    <p><code class="px-1 py-0.5 rounded">APOC</code> and <code class="px-1 py-0.5 rounded">Graph Data Science</code> plugins must be installed in Neo4j instance.</p>
+                                </div>
+                            </div>
                                 <!-- Note: Python Version -->
                             <div class="note note-warning">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="note-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                                 <div>
                                     <h3 class="font-semibold">Python Version</h3>
                                     <p>Use Python <code class="px-1 py-0.5 rounded">3.11.x</code> or <code class="px-1 py-0.5 rounded">3.12.x</code>. Other versions are not supported.</p>
+                                </div>
+                            </div>
+                            <!-- Note: Python IDE -->
+                            <div class="note note-warning">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="note-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <div>
+                                    <h3 class="font-semibold">Python IDE</h3>
+                                    <p>It is recommended to use an IDE such as <code class="px-1 py-0.5 rounded">PyCharm</code>, <code class="px-1 py-0.5 rounded">VSCode</code>, or other similar editors for a better development experience.</p>
                                 </div>
                             </div>
                         </div>
@@ -296,13 +312,52 @@ venv\Scripts\activate</code></pre>
 
                             <!-- Step: Install Poetry -->
                             <div id="step-poetry">
-                                <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                                    <h3 class="text-xl font-semibold mb-4">Install Poetry</h3>
-                                    <p class="mb-4 text-dark-gray">We use Poetry for dependency management. Install it if you haven't already.</p>
-                                    <div class="code-block" data-lang="Bash">
-                                        <pre><code class="language-bash">pip install poetry</code></pre>
-                                    </div>
+                              <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-4">Install Poetry</h3>
+                                <p class="mb-4 text-dark-gray">
+                                  Poetry is used for dependency management.
+                                  <strong>Run this step only if Poetry is not already installed.</strong>
+                                </p>
+
+                                <!-- Info Note -->
+                                <div class="note note-info mb-4">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="note-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                                  <div>
+                                    <h3 class="font-semibold">Tip</h3>
+                                    <p>
+                                      First check if Poetry is installed:
+                                      <code class="px-1 py-0.5 rounded">poetry --version</code>
+                                      <br>
+                                      If you see a version number, skip this step.
+                                    </p>
+                                  </div>
                                 </div>
+
+                                <!-- Interactive Button -->
+                                <button id="check-poetry-btn" class="btn btn-primary mb-4">
+                                  Check Poetry Installation
+                                </button>
+
+                                <!-- Code Block (hidden by default) -->
+                                <div id="install-poetry-block" class="code-block hidden" data-lang="Bash">
+                                  <pre><code class="language-bash"># Install Poetry (only if not installed)
+pip install poetry
+
+# Verify installation
+poetry --version</code></pre>
+                                <p class="mt-4 text-dark-gray">
+                                  If you face issues, refer to the
+                                  <a href="https://python-poetry.org/docs/" target="_blank"
+                                     style="color: var(--color-dark-blue); transition: color 0.2s ease-in-out;"
+                                     onmouseover="this.style.color='var(--color-sapphire)'; this.style.textDecoration='underline';"
+                                     onmouseout="this.style.color='var(--color-dark-blue)'; this.style.textDecoration='none';">
+                                    official Poetry documentation
+                                  </a>.
+                                </p>
+                                </div>
+                              </div>
                             </div>
 
                             <!-- Step: Install Project Dependencies -->
@@ -333,7 +388,7 @@ venv\Scripts\activate</code></pre>
                                 <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                                     <h3 class="text-xl font-semibold mb-4">Clone the Source Repository</h3>
                                     <p class="mb-4 text-dark-gray">Paste your repository URL below to generate the correct clone command.</p>
-                                    
+
                                     <div class="mb-4">
                                         <label for="repo-url-input" class="block text-sm font-medium text-dark-gray mb-2">Your Git Repository URL:</label>
                                         <input type="text" id="repo-url-input" placeholder="https://github.com/user/repository.git" class="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors" style="color:var(--color-dark-blue)">
@@ -363,7 +418,7 @@ cd ..</code></pre>
                                 <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                                     <h3 class="text-xl font-semibold mb-4">Choose a Configuration Template</h3>
                                     <p class="mb-4 text-dark-gray">Select a configuration template based on your cloud provider and copy it to `config.yaml`.</p>
-                                    
+
                                     <!-- Button-based Selector -->
                                     <div id="config-selector" class="flex space-x-2 mb-4">
                                         <button data-cloud="azure" class="config-button btn btn-primary">Azure</button>
@@ -388,7 +443,7 @@ cd ..</code></pre>
                                     </svg>
                                     Tool & Action Library
                                 </h2>
-                        
+
                                 <!-- Tabs -->
                                 <div class="border-b mb-8" style="border-color: var(--color-medium-gray);">
                                     <nav class="-mb-px flex space-x-6" aria-label="Tabs">
@@ -400,7 +455,7 @@ cd ..</code></pre>
                                         </button>
                                     </nav>
                                 </div>
-                        
+
                                 <!-- Ingestion Tools Content -->
                                 <div id="ingestion-content">
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -434,7 +489,7 @@ cd ..</code></pre>
                                         </div>
                                     </div>
                                 </div>
-                        
+
                                 <!-- Comprehension Actions Content (Initially Hidden) -->
                                 <div id="comprehension-content" class="hidden">
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -486,7 +541,7 @@ cd ..</code></pre>
                                         <p>Once the template is ready, configure the required parameters (mentioned in comments) as per your needs. In case of any doubt, refer to the "View Docs" button for each tool and action.</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="code-block" data-lang="YAML">
                                     <pre><code id="main-config-yaml" class="language-yaml"></code></pre>
                                 </div>
@@ -502,7 +557,7 @@ cd ..</code></pre>
                             </div>
                         </div>
                     </section>
-                    
+
                     <section id="run-application" class="p-8 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300">
                         <h2 class="text-2xl font-semibold mb-6 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" style="color: var(--color-sapphire);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -510,7 +565,7 @@ cd ..</code></pre>
                             </svg>
                             Running the Application
                         </h2>
-                        
+
                         <div class="note note-info mb-8">
                             <svg xmlns="http://www.w3.org/2000/svg" class="note-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             <div>
@@ -518,7 +573,7 @@ cd ..</code></pre>
                                 <p>Ensure you have <strong>Node.js v22.6.0</strong> installed via <code>nvm</code>. All dependencies should be installed before starting.</p>
                             </div>
                         </div>
-                        
+
                         <div class="space-y-8">
                             <div id="step-ui-dir">
                                 <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
@@ -587,6 +642,10 @@ cd ..</code></pre>
 
 
     <script>
+        document.getElementById('check-poetry-btn').addEventListener('click', () => {
+            const block = document.getElementById('install-poetry-block');
+            block.classList.toggle('hidden');
+          });
         document.addEventListener('DOMContentLoaded', () => {
             const toolDetails = {
                 bluage: {
