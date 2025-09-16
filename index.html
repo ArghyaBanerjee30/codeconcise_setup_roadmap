@@ -183,10 +183,148 @@
             color: white;
         }
         .btn-dark:hover { background-color: #555555; border-color: #555555; }
+        /* Smooth color changes, no underline */
+aside nav a {
+  position: relative;
+  display: block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+/* Active = sapphire */
+.nav-active {
+  color: var(--color-sapphire, #2081e3) !important;
+  font-weight: 700;
+  background: rgba(32,129,227, .10);
+  box-shadow: inset 0 0 0 1px rgba(32,129,227,.18);
+}
+
+/* Done (already passed) = green */
+/* keep your existing: aside nav a { ... } and .nav-active { ... } */
+
+/* success token */
+:root { --color-success: #22c55e; }
+
+/* DONE state (with badge) */
+.nav-done:not(.nav-active) {
+  position: relative;
+  color: #15803d !important;                /* readable green */
+  font-weight: 600;
+  padding: 6px 10px 6px 32px;               /* room for badge */
+  border-radius: 8px;
+
+  /* fallbacks first */
+  background: rgba(34, 197, 94, 0.10);
+  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.20);
+
+  /* modern override (if supported) */
+  background: color-mix(in srgb, var(--color-success) 10%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-success) 20%, transparent);
+}
+
+.nav-done:not(.nav-active)::before {
+  content: "✓";
+  position: absolute;
+  left: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 18px; height: 18px; line-height: 18px;
+  text-align: center; font-size: 12px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--color-success);
+
+  /* subtle ring */
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.20);
+}
+
+/* safety: ensure active item never shows the badge */
+.nav-active::before { content: none; }
+
+/* Anchor land offset so headings aren’t flush to the top */
+[id] { scroll-margin-top: 96px; }
+.site-footer {
+  margin-top: 64px;
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  background: var(--footer-bg, #f9fafb);
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.site-footer a { color: var(--color-sapphire, #2081e3); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,2fr) auto;
+  gap: 24px;
+  align-items: start;
+}
+
+.footer-brand {
+  display: flex; gap: 12px; align-items: center;
+}
+.footer-logo {
+  width: 36px; height: 36px; fill: var(--color-sapphire, #2081e3);
+  opacity: .9;
+}
+.footer-brand h4 { margin: 0 0 2px; color: #111827; }
+.footer-brand p  { margin: 0; font-size: 12px; color: #6b7280; }
+
+.footer-columns {
+  display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 16px 32px;
+}
+.footer-columns .col h5 {
+  margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #6b7280;
+}
+.footer-columns ul { margin: 0; padding: 0; list-style: none; }
+.footer-columns li { margin: 6px 0; }
+
+.with-icon { position: relative; padding-left: 22px; }
+.with-icon .icon-envelope,
+.with-icon .icon-copy {
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; display: inline-block;
+  background: currentColor; -webkit-mask-size: 16px 16px; mask-size: 16px 16px;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+.icon-envelope { -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>'); mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>'); }
+.icon-copy { -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M8 7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V7Zm-4 2V5a2 2 0 0 1 2-2h8v2H6v4H4Z"/></svg>'); mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M8 7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V7Zm-4 2V5a2 2 0 0 1 2-2h8v2H6v4H4Z"/></svg>'); }
+
+.btn-top {
+  align-self: start;
+  justify-self: end;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #e6f2fd;
+  color: var(--color-sapphire, #2081e3);
+  font-weight: 600;
+  border: 1px solid rgba(32,129,227,.25);
+  box-shadow: 0 1px 0 rgba(17,24,39,.04);
+}
+.btn-top:hover { text-decoration: none; background: #dff0ff; }
+
+.footer-bottom {
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  display: flex; gap: 8px; justify-content: center; align-items: center;
+  padding: 12px 16px; color: #6b7280; font-size: 12px;
+}
+.footer-bottom .dot { opacity: .6; }
+
+@media (max-width: 900px) {
+  .footer-inner { grid-template-columns: 1fr; }
+  .btn-top { justify-self: start; }
+  .footer-columns { grid-template-columns: repeat(2, minmax(120px,1fr)); }
+}
     </style>
 </head>
 <body>
-
+<div id="top"></div>
     <!-- Header -->
     <header class="header-gradient text-white py-8 px-4 text-center">
         <div class="container mx-auto max-w-4xl">
@@ -234,7 +372,7 @@
                     </ul>
                 </nav>
             </aside>
-            
+
             <!-- Right Content Area -->
             <main class="lg:col-span-3">
                 <div class="space-y-12">
@@ -280,14 +418,14 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mt-12 space-y-8">
                             <!-- Step: Virtual Environment -->
                             <div id="step-venv">
                                 <div class="p-6 rounded-lg bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                                     <h3 class="text-xl font-semibold mb-4">Create & Activate Virtual Environment</h3>
                                     <p class="mb-4 text-dark-gray">Select your operating system to get the correct activation command.</p>
-                                    
+
                                     <div id="os-selector" class="flex space-x-2 mb-4">
                                         <button data-os="linux" class="os-button btn btn-primary">Linux | macOS</button>
                                         <button data-os="windows" class="os-button btn btn-outline">Windows</button>
@@ -642,6 +780,123 @@ cd ..</code></pre>
 
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  // If you have a sticky header, set this to its height in px
+  const TOP_OFFSET = 0;
+
+  const navRoot = document.querySelector('aside nav');
+  if (!navRoot) return;
+
+  // All sidebar links that point to in-page anchors
+  const sidebarLinks = Array.from(navRoot.querySelectorAll('a[href^="#"]'));
+  if (!sidebarLinks.length) return;
+
+  const hrefToId = a => decodeURIComponent(a.getAttribute('href').slice(1));
+
+  // Map: id -> <a>
+  const idToLink = new Map(sidebarLinks.map(a => [hrefToId(a), a]));
+
+  // Targets that actually exist on the page
+  const targets = Array.from(idToLink.keys())
+    .map(id => ({ id, el: document.getElementById(id) }))
+    .filter(x => x.el);
+  if (!targets.length) return;
+
+  // Index of each target in nav order
+  const linkIndex = new Map(targets.map(({ id }, i) => [id, i]));
+
+  // Build parent -> children map from nested lists:
+  // <li><a href="#parent">...</a>
+  //     <ul><li><a href="#child-1">...</a> ...</li></ul>
+  // </li>
+  const childrenById = new Map();
+  for (const a of sidebarLinks) {
+    const id = hrefToId(a);
+    let children = [];
+
+    const li = a.closest('li');
+    if (li) {
+      const nested = li.querySelector(':scope > ul, :scope > ol');
+      if (nested) {
+        children = Array.from(nested.querySelectorAll('a[href^="#"]')).map(hrefToId);
+      }
+    } else if (a.nextElementSibling && a.nextElementSibling.matches('ul,ol')) {
+      children = Array.from(a.nextElementSibling.querySelectorAll('a[href^="#"]')).map(hrefToId);
+    }
+
+    childrenById.set(id, children);
+  }
+
+  let currentActive = null;
+
+  function setActive(id) {
+    if (currentActive === id) return;
+    currentActive = id;
+
+    const activeIdx = linkIndex.get(id) ?? -1;
+
+    for (const a of sidebarLinks) {
+      const linkId = hrefToId(a);
+      const idx = linkIndex.get(linkId);
+
+      const isActive = idx === activeIdx;
+
+      const children = childrenById.get(linkId) || [];
+      const isParent = children.length > 0;
+
+      // "Done" rules:
+      //  - child/simple item: index < active index
+      //  - parent section: ALL its children must be done
+      const allChildrenDone = isParent &&
+        children.every(cid => (linkIndex.get(cid) ?? Infinity) < activeIdx);
+
+      const isDone = isParent ? allChildrenDone
+                              : (typeof idx === 'number' && idx < activeIdx);
+
+      a.classList.toggle('nav-active', isActive); // current = sapphire
+      a.classList.toggle('nav-done',   isDone);   // past = green
+
+      if (isActive) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    }
+  }
+
+  function computeActive() {
+    let bestId = null;
+    let bestPos = Infinity;
+
+    for (const { id, el } of targets) {
+      const top = el.getBoundingClientRect().top - TOP_OFFSET;
+      if (top >= 0 && top < bestPos) { bestPos = top; bestId = id; }
+    }
+
+    if (!bestId) {
+      let closestNeg = -Infinity;
+      for (const { id, el } of targets) {
+        const top = el.getBoundingClientRect().top - TOP_OFFSET;
+        if (top < 0 && top > closestNeg) { closestNeg = top; bestId = id; }
+      }
+    }
+
+    if (bestId) setActive(bestId);
+  }
+
+  // rAF-throttled scroll handler
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => { computeActive(); ticking = false; });
+      ticking = true;
+    }
+  }
+
+  // Init + listeners
+  computeActive();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', computeActive);
+  window.addEventListener('hashchange', computeActive);
+  sidebarLinks.forEach(a => a.addEventListener('click', () => setTimeout(computeActive, 0)));
+});
         document.getElementById('check-poetry-btn').addEventListener('click', () => {
             const block = document.getElementById('install-poetry-block');
             block.classList.toggle('hidden');
@@ -712,9 +967,9 @@ cd ..</code></pre>
     - "*"                                                 # Include all node types
   included_relation_types:
     - "*"                                                 # Include all relationship types</code></pre></div>
-                        
+
                         <p class="mt-4 italic text-gray-600">Note: Example <code>dependencies.json</code> file is provided below.</p>
-                        
+
                         <div class="code-block" data-lang="JSON"><pre><code class="language-json">[
   {
       "name": "README.md",
@@ -895,7 +1150,7 @@ cd ..</code></pre>
                             <li><strong>Graph Population</strong><ul class="list-disc pl-6 mt-1"><li>Populates the graph using <code>graph_constructor.client().populate_db()</code> with nodes and edges.</li></ul></li>
                         </ol>
                         <hr class="my-6 border-gray-300">
-                        
+
                         <h2>Notes</h2>
                         <ul class="space-y-2">
                             <li>Parsing errors are gracefully handled with logging to ensure maximum node extraction.</li>
@@ -1265,8 +1520,8 @@ cd ..</code></pre>
                         </ul>
                         <hr class="my-6 border-gray-300">
                         <h3>Example Graph</h3>
-                        <div class="code-block" data-lang="text"><pre><code class="language-plaintext">[PACKAGE] 
-    └──(MADE_OF)──> [CLASS / INTERFACE / ENUM] 
+                        <div class="code-block" data-lang="text"><pre><code class="language-plaintext">[PACKAGE]
+    └──(MADE_OF)──> [CLASS / INTERFACE / ENUM]
           └──(MADE_OF)──> [METHOD]
     └──(DEPENDS_ON)──> [EXTERNAL PACKAGE]
     └──(EXTENDS / IMPLEMENTS)──> [BASE CLASS / INTERFACE]
@@ -2704,7 +2959,7 @@ Group 4:
             const mainConfigCodeElement = document.getElementById('main-config-yaml');
             const selectedTools = new Set();
             const selectedActions = new Set(['static_code_summary', 'dynamic_code_summary']);
-            
+
             const baseConfigTemplate = `pipeline:
   db-name: \${NEO4J_DATABASE}
   output-path: \${OUTPUT_PATH}
@@ -2723,7 +2978,7 @@ Group 4:
           name: BottomUpTraversal
           enrichments:
 #COMPREHENSION_ACTIONS_PLACEHOLDER#`;
-            
+
             function updateConfigDisplay() {
                 let toolsContent = '';
                 if (selectedTools.size > 0) {
@@ -2748,7 +3003,7 @@ Group 4:
                         }
                     }).join('\n\n');
                 }
-                
+
                 const defaultActionsExist = selectedActions.has('static_code_summary') && selectedActions.has('dynamic_code_summary');
                 if (selectedActions.size === 2 && defaultActionsExist) {
                                  actionsContent += '\n            <span class="text-gray-400"># Add other actions from the library above</span>';
@@ -2781,7 +3036,7 @@ Group 4:
                 if (!pre) return;
 
                 const lang = block.dataset.lang;
-                
+
                 const oldHeader = block.querySelector('.code-block-header');
                 if(oldHeader) oldHeader.remove();
 
@@ -2789,11 +3044,11 @@ Group 4:
                 header.className = 'code-block-header flex justify-between items-center rounded-t-md px-4 py-2 text-xs font-mono border-b';
                 header.style.backgroundColor = '#002d3c'; // Darker blue
                 header.style.borderColor = '#001e29';
-                
+
                 const langLabel = document.createElement('span');
                 langLabel.className = 'text-slate-400';
                 langLabel.textContent = lang || '';
-                
+
                 const copyButton = document.createElement('button');
                 copyButton.className = 'flex items-center space-x-1 text-slate-400 hover:text-white';
                 const originalButtonHTML = `
@@ -2803,10 +3058,10 @@ Group 4:
                     <span>Copy</span>
                 `;
                 copyButton.innerHTML = originalButtonHTML;
-                
+
                 header.appendChild(langLabel);
                 header.appendChild(copyButton);
-                
+
                 block.insertBefore(header, pre);
                 pre.className = 'text-slate-200 text-sm rounded-b-md p-4 overflow-x-auto';
                 pre.style.backgroundColor = 'var(--color-dark-blue)';
@@ -2851,14 +3106,14 @@ Group 4:
                     initializeCodeBlock(block)
                 }
             });
-            
+
             // OS Selector
             const osSelector = document.getElementById('os-selector');
             if (osSelector) {
                 osSelector.addEventListener('click', (e) => {
                     if (e.target.tagName !== 'BUTTON') return;
                     const os = e.target.dataset.os;
-                    
+
                     osSelector.querySelectorAll('button').forEach(btn => {
                         btn.classList.remove('btn-primary');
                         btn.classList.add('btn-outline');
@@ -2884,7 +3139,7 @@ Group 4:
                     });
                     e.target.classList.add('btn-primary');
                     e.target.classList.remove('btn-outline');
-                    
+
                     document.getElementById('aws-code-block').classList.toggle('hidden', selectedCloud !== 'aws');
                     document.getElementById('azure-code-block').classList.toggle('hidden', selectedCloud !== 'azure');
                 });
@@ -2907,7 +3162,7 @@ Group 4:
             const comprehensionTab = document.getElementById('comprehension-tab');
             const ingestionContent = document.getElementById('ingestion-content');
             const comprehensionContent = document.getElementById('comprehension-content');
-            
+
             function handleTabClick(activeTab, inactiveTab, activeContent, inactiveContent) {
                 activeTab.classList.add('tab-active');
                 activeTab.classList.remove('text-dark-gray');
@@ -2947,9 +3202,9 @@ Group 4:
 
                     button.addEventListener('click', () => {
                         if (!details.yamlSnippet) return;
-                        
+
                         const isAdded = isSelectedSet.has(toolKey);
-                        
+
                         if (isAdded) {
                             isSelectedSet.delete(toolKey);
                             button.innerHTML = 'Add to Config';
@@ -3011,7 +3266,67 @@ Group 4:
                 }
             });
         });
+(function () {
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    const updatedEl = document.getElementById('last-updated');
+    if (updatedEl) {
+      const dt = new Date(document.lastModified);
+      updatedEl.textContent = isNaN(dt) ? '—' : dt.toLocaleString(undefined, {
+        year: 'numeric', month: 'short', day: '2-digit',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+  })();
     </script>
+    <footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <!-- Simple logo mark -->
+      <svg class="footer-logo" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 12a8 8 0 1116 0 8 8 0 01-16 0Zm3.5 0a4.5 4.5 0 108.99.01A4.5 4.5 0 007.5 12Z" />
+      </svg>
+      <div>
+        <h4>CodeConcise</h4>
+        <p>Local setup guide</p>
+      </div>
+    </div>
+
+    <nav class="footer-columns" aria-label="Footer">
+      <div class="col">
+        <h5>Docs</h5>
+        <ul>
+          <li><a href="#prerequisites">Prerequisites</a></li>
+          <li><a href="#ingestion-pipeline">Ingestion Pipeline</a></li>
+          <li><a href="#running-application">Running Application</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h5>Support</h5>
+        <ul>
+          <li>
+            <a href="mailto:codeconcise-internal@thoughtworks.com" class="with-icon">
+              <span class="icon-envelope" aria-hidden="true"></span>
+              Email Support
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <a href="#top" class="btn-top" aria-label="Back to top">↑ Back to top</a>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> Thoughtworks</span>
+    <span class="dot">•</span>
+    <span>All rights reserved</span>
+  </div>
+</footer>
+
+
 
 </body>
 </html>
